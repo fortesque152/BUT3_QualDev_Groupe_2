@@ -6,7 +6,7 @@ public class TestMatrice {
 
     @Before
     public void setUP() {
-        matrice = new Matrice (4, 7)
+        matrice = new Matrice (4, 7);
 
     }
 
