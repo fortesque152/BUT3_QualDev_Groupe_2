@@ -38,6 +38,7 @@ public class TestGrille {
     @Test
     public void testDeplacement(){
         Tondeuse tondeuse1 = new Tondeuse(5, 5, 1, 2, NORTH);
+        Tondeuse tondeuse2 = new Tondeuse(5, 5, 3, 3, EAST);
         try {
             tondeuse1.deplacement(G);
             tondeuse1.deplacement(A);
@@ -58,6 +59,30 @@ public class TestGrille {
             tondeuse1.deplacement(A);
             Assert.assertEquals(1, tondeuse1.getCaseFinale().getX());
             Assert.assertEquals(1, tondeuse1.getCaseFinale().getY());
+
+
+            tondeuse2.deplacement(A);
+            Assert.assertEquals(4, tondeuse2.getCaseFinale().getX());
+            Assert.assertEquals(3, tondeuse2.getCaseFinale().getY());
+            tondeuse2.deplacement(A);
+            Assert.assertEquals(5, tondeuse2.getCaseFinale().getX());
+            Assert.assertEquals(3, tondeuse2.getCaseFinale().getY());
+            tondeuse2.deplacement(D);
+            tondeuse2.deplacement(A);
+            Assert.assertEquals(5, tondeuse2.getCaseFinale().getX());
+            Assert.assertEquals(4, tondeuse2.getCaseFinale().getY());
+            tondeuse2.deplacement(A);
+            Assert.assertEquals(5, tondeuse2.getCaseFinale().getX());
+            Assert.assertEquals(5, tondeuse2.getCaseFinale().getY());
+            tondeuse2.deplacement(D);
+            tondeuse2.deplacement(A);
+            Assert.assertEquals(4, tondeuse2.getCaseFinale().getX());
+            Assert.assertEquals(5, tondeuse2.getCaseFinale().getY());
+            tondeuse2.deplacement(D);
+            tondeuse2.deplacement(D);
+            tondeuse2.deplacement(A);
+            Assert.assertEquals(5, tondeuse2.getCaseFinale().getX());
+            Assert.assertEquals(5, tondeuse2.getCaseFinale().getY());
 
         } catch (DeplacementException e) {
             throw new RuntimeException(e);
