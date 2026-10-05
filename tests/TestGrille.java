@@ -1,5 +1,3 @@
-package java;
-
 import modele.Grille;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,7 +15,6 @@ public class TestGrille {
 
     @Test
     public void testVerifieNbCase(){
-        //Vérifier qu'on a bien le bon nombre de case
         Assert.assertEquals(36,grille.getTaille());
     }
 
