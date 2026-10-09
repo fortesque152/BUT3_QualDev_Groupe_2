@@ -41,6 +41,8 @@ public class Tondeuse {
 		return sens;
 	}
 
+	public void setSens(EDirection sens) { this.sens = sens; } public void setCaseFinale(Case caseFinale) { this.caseFinale = caseFinale; } public Grille getPelouse() { return pelouse; }
+
 	public Tondeuse(int lignes, int colonnes, int posX, int posY, EDirection sens) {
 		this.pelouse = new Grille(lignes, colonnes);
 		this.caseDepart = this.pelouse.getCase(posX, posY);
@@ -48,85 +50,7 @@ public class Tondeuse {
 		this.sens = sens;
 	}
 
-	public void deplacement(EDeplacement deplacement) throws DeplacementException {
-		switch (deplacement) {
-		case A:
-			deplacerEnAvant();
-			break;
-		case D:
-			deplacerADroite();
-			break;
-		case G:
-			deplacerAGauche();
-			break;
-		default:
-			break;
-		}
-	}
 
-	private void deplacerADroite() {
-		switch (sens) {
-		case NORTH:
-			sens = EAST;
-			break;
-		case EAST:
-			sens = SOUTH;
-			break;
-		case WEST:
-			sens = NORTH;
-			break;
-		case SOUTH:
-			sens = WEST;
-			break;
-		default:
-			break;
-		}
-	}
-
-	private void deplacerAGauche() {
-		switch (sens) {
-		case NORTH:
-			sens = WEST;
-			break;
-		case EAST:
-			sens = NORTH;
-			break;
-		case WEST:
-			sens = SOUTH;
-			break;
-		case SOUTH:
-			sens = EAST;
-			break;
-		default:
-			break;
-		}
-	}
-
-	private void deplacerEnAvant() throws DeplacementException {
-		int x = caseFinale.getX();
-		int y = caseFinale.getY();
-		switch (sens) {
-		case NORTH:
-			y = y - 1;
-			break;
-		case EAST:
-			x = x + 1;
-			break;
-		case WEST:
-			x = x - 1;
-			break;
-		case SOUTH:
-			y = y + 1;
-			break;
-		default:
-			break;
-		}
-		try {
-			this.caseFinale = this.pelouse.getCase(x, y);
-		} catch (Exception e) {
-			throw new DeplacementException("Déplacement Impossible !");
-		}
-	}
 
 	@Override
 	public String toString() {
