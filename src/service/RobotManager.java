@@ -5,14 +5,14 @@ import static enumerations.EDirection.*;
 import enumerations.EDeplacement;
 import exceptions.DeplacementException;
 import modele.Case;
-import modele.Tondeuse;
+import modele.Robot;
 
-public class TondeuseManager {
+public class RobotManager {
 
-    private Tondeuse tondeuse;
+    private Robot robot;
 
-    public TondeuseManager(Tondeuse tondeuse) {
-        this.tondeuse = tondeuse;
+    public RobotManager(Robot robot) {
+        this.robot = robot;
     }
 
     public void deplacement(EDeplacement deplacement)
@@ -39,44 +39,44 @@ public class TondeuseManager {
 
     private void deplacerADroite() {
 
-        switch (tondeuse.getSens()) {
+        switch (robot.getSens()) {
 
             case NORTH:
-                tondeuse.setSens(EAST);
+                robot.setSens(EAST);
                 break;
 
             case EAST:
-                tondeuse.setSens(SOUTH);
+                robot.setSens(SOUTH);
                 break;
 
             case SOUTH:
-                tondeuse.setSens(WEST);
+                robot.setSens(WEST);
                 break;
 
             case WEST:
-                tondeuse.setSens(NORTH);
+                robot.setSens(NORTH);
                 break;
         }
     }
 
     private void deplacerAGauche() {
 
-        switch (tondeuse.getSens()) {
+        switch (robot.getSens()) {
 
             case NORTH:
-                tondeuse.setSens(WEST);
+                robot.setSens(WEST);
                 break;
 
             case WEST:
-                tondeuse.setSens(SOUTH);
+                robot.setSens(SOUTH);
                 break;
 
             case SOUTH:
-                tondeuse.setSens(EAST);
+                robot.setSens(EAST);
                 break;
 
             case EAST:
-                tondeuse.setSens(NORTH);
+                robot.setSens(NORTH);
                 break;
         }
     }
@@ -84,10 +84,10 @@ public class TondeuseManager {
     private void deplacerEnAvant()
             throws DeplacementException {
 
-        int x = tondeuse.getCaseFinale().getX();
-        int y = tondeuse.getCaseFinale().getY();
+        int x = robot.getCaseFinale().getX();
+        int y = robot.getCaseFinale().getY();
 
-        switch (tondeuse.getSens()) {
+        switch (robot.getSens()) {
 
             case NORTH:
                 y--;
@@ -109,9 +109,9 @@ public class TondeuseManager {
         try {
 
             Case nouvelleCase =
-                    tondeuse.getPelouse().getCase(x, y);
+                    robot.getPelouse().getCase(x, y);
 
-            tondeuse.setCaseFinale(nouvelleCase);
+            robot.setCaseFinale(nouvelleCase);
 
         } catch (Exception e) {
 

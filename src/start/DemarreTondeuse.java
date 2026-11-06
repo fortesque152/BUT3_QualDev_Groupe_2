@@ -7,27 +7,24 @@ import static enumerations.EDirection.EAST;
 import static enumerations.EDirection.NORTH;
 
 import exceptions.DeplacementException;
+import modele.Grille;
+import modele.Robot;
 import modele.Tondeuse;
-import service.TondeuseManager;
+import service.RobotManager;
 
 public class DemarreTondeuse {
 
 	public static void main(String[] args) {
 
-		Tondeuse tondeuse1 =
-				new Tondeuse(5, 5, 1, 2, NORTH);
+		Grille grille = new Grille(5, 5);
 
-		Tondeuse tondeuse2 =
-				new Tondeuse(5, 5, 3, 3, EAST);
+		Robot robot1 = new Tondeuse(grille, 1, 2, NORTH);
+		Robot robot2 = new Tondeuse(grille, 3, 3, EAST);
 
-		TondeuseManager manager1 =
-				new TondeuseManager(tondeuse1);
-
-		TondeuseManager manager2 =
-				new TondeuseManager(tondeuse2);
+		RobotManager manager1 = new RobotManager(robot1);
+		RobotManager manager2 = new RobotManager(robot2);
 
 		try {
-
 			// Déplacement de la tondeuse 1
 			manager1.deplacement(G);
 			manager1.deplacement(A);
@@ -39,8 +36,7 @@ public class DemarreTondeuse {
 			manager1.deplacement(A);
 			manager1.deplacement(A);
 
-			System.out.println(tondeuse1);
-
+			System.out.println(robot1);
 
 			// Déplacement de la tondeuse 2
 			manager2.deplacement(A);
@@ -54,7 +50,7 @@ public class DemarreTondeuse {
 			manager2.deplacement(D);
 			manager2.deplacement(A);
 
-			System.out.println(tondeuse2);
+			System.out.println(robot2);
 
 		} catch (DeplacementException e) {
 			System.out.println(e.getMessage());

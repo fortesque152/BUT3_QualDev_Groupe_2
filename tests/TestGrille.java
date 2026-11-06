@@ -1,13 +1,14 @@
 import modele.Grille;
+import modele.Robot;
 import modele.Tondeuse;
-import service.TondeuseManager;
+import service.RobotManager;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static enumerations.EDirection.NORTH;
 import static enumerations.EDirection.EAST;
+import static enumerations.EDirection.NORTH;
 
 import static enumerations.EDeplacement.A;
 import static enumerations.EDeplacement.D;
@@ -21,178 +22,75 @@ public class TestGrille {
 
     @Before
     public void setUp() {
-        this.grille = new Grille(5, 5);
+        grille = new Grille(5, 5);
+    }
+
+    private void assertPosition(Robot r, int x, int y) {
+        Assert.assertEquals(x, r.getCaseFinale().getX());
+        Assert.assertEquals(y, r.getCaseFinale().getY());
     }
 
     @Test
-    public void testVerifieNbCase() {
+    public void testNbCases() {
         Assert.assertEquals(36, grille.getTaille());
     }
 
     @Test
-    public void testDeplacement() {
+    public void testRobot1() throws DeplacementException {
+        Robot robot = new Tondeuse(grille, 1, 2, NORTH);
+        RobotManager manager = new RobotManager(robot);
 
-        Tondeuse tondeuse1 =
-                new Tondeuse(5, 5, 1, 2, NORTH);
+        manager.deplacement(G);
+        manager.deplacement(A);
+        assertPosition(robot, 0, 2);
 
-        TondeuseManager manager1 =
-                new TondeuseManager(tondeuse1);
+        manager.deplacement(G);
+        manager.deplacement(A);
+        assertPosition(robot, 0, 3);
 
-        Tondeuse tondeuse2 =
-                new Tondeuse(5, 5, 3, 3, EAST);
+        manager.deplacement(G);
+        manager.deplacement(A);
+        assertPosition(robot, 1, 3);
 
-        TondeuseManager manager2 =
-                new TondeuseManager(tondeuse2);
+        manager.deplacement(G);
+        manager.deplacement(A);
+        assertPosition(robot, 1, 2);
 
-        try {
+        manager.deplacement(A);
+        assertPosition(robot, 1, 1);
+    }
 
-            // Tondeuse 1
+    @Test
+    public void testRobot2() throws DeplacementException {
+        Robot robot = new Tondeuse(grille, 3, 3, EAST);
+        RobotManager manager = new RobotManager(robot);
 
-            manager1.deplacement(G);
-            manager1.deplacement(A);
+        manager.deplacement(A);
+        assertPosition(robot, 4, 3);
 
-            Assert.assertEquals(
-                    0,
-                    tondeuse1.getCaseFinale().getX()
-            );
+        manager.deplacement(A);
+        assertPosition(robot, 5, 3);
 
-            Assert.assertEquals(
-                    2,
-                    tondeuse1.getCaseFinale().getY()
-            );
+        manager.deplacement(D);
+        manager.deplacement(A);
+        assertPosition(robot, 5, 4);
 
-            manager1.deplacement(G);
-            manager1.deplacement(A);
+        manager.deplacement(A);
+        assertPosition(robot, 5, 5);
 
-            Assert.assertEquals(
-                    0,
-                    tondeuse1.getCaseFinale().getX()
-            );
+        manager.deplacement(D);
+        manager.deplacement(A);
+        assertPosition(robot, 4, 5);
 
-            Assert.assertEquals(
-                    3,
-                    tondeuse1.getCaseFinale().getY()
-            );
+        manager.deplacement(D);
+        manager.deplacement(D);
+        manager.deplacement(A);
+        assertPosition(robot, 5, 5);
+    }
 
-            manager1.deplacement(G);
-            manager1.deplacement(A);
-
-            Assert.assertEquals(
-                    1,
-                    tondeuse1.getCaseFinale().getX()
-            );
-
-            Assert.assertEquals(
-                    3,
-                    tondeuse1.getCaseFinale().getY()
-            );
-
-            manager1.deplacement(G);
-            manager1.deplacement(A);
-
-            Assert.assertEquals(
-                    1,
-                    tondeuse1.getCaseFinale().getX()
-            );
-
-            Assert.assertEquals(
-                    2,
-                    tondeuse1.getCaseFinale().getY()
-            );
-
-            manager1.deplacement(A);
-
-            Assert.assertEquals(
-                    1,
-                    tondeuse1.getCaseFinale().getX()
-            );
-
-            Assert.assertEquals(
-                    1,
-                    tondeuse1.getCaseFinale().getY()
-            );
-
-
-            // Tondeuse 2
-
-            manager2.deplacement(A);
-
-            Assert.assertEquals(
-                    4,
-                    tondeuse2.getCaseFinale().getX()
-            );
-
-            Assert.assertEquals(
-                    3,
-                    tondeuse2.getCaseFinale().getY()
-            );
-
-            manager2.deplacement(A);
-
-            Assert.assertEquals(
-                    5,
-                    tondeuse2.getCaseFinale().getX()
-            );
-
-            Assert.assertEquals(
-                    3,
-                    tondeuse2.getCaseFinale().getY()
-            );
-
-            manager2.deplacement(D);
-            manager2.deplacement(A);
-
-            Assert.assertEquals(
-                    5,
-                    tondeuse2.getCaseFinale().getX()
-            );
-
-            Assert.assertEquals(
-                    4,
-                    tondeuse2.getCaseFinale().getY()
-            );
-
-            manager2.deplacement(A);
-
-            Assert.assertEquals(
-                    5,
-                    tondeuse2.getCaseFinale().getX()
-            );
-
-            Assert.assertEquals(
-                    5,
-                    tondeuse2.getCaseFinale().getY()
-            );
-
-            manager2.deplacement(D);
-            manager2.deplacement(A);
-
-            Assert.assertEquals(
-                    4,
-                    tondeuse2.getCaseFinale().getX()
-            );
-
-            Assert.assertEquals(
-                    5,
-                    tondeuse2.getCaseFinale().getY()
-            );
-
-            manager2.deplacement(D);
-            manager2.deplacement(D);
-            manager2.deplacement(A);
-
-            Assert.assertEquals(
-                    5,
-                    tondeuse2.getCaseFinale().getX()
-            );
-
-            Assert.assertEquals(
-                    5,
-                    tondeuse2.getCaseFinale().getY()
-            );
-
-        } catch (DeplacementException e) {
-            throw new RuntimeException(e);
-        }
+    @Test(expected = DeplacementException.class)
+    public void testSortieDeGrille() throws DeplacementException {
+        Robot robot = new Tondeuse(grille, 1, 0, NORTH);
+        new RobotManager(robot).deplacement(A); // y = -1
     }
 }
