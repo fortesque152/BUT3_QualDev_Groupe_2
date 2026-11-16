@@ -1,0 +1,44 @@
+package modele;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Grille {
+
+	// Une grille contient un ensemble de cases.
+	private List<Case> cases;
+	
+	// Un tableau de 5 x 5 contient 36 éléments.
+	public int getTaille( ) {
+		return cases.size();
+	}
+
+	/*
+	 * @return : La case de coordonnées x et y.
+	 */
+	public Case getCase(int x, int y) {
+		int maxX = cases.get(cases.size() - 1).getX();
+        int maxY = cases.get(cases.size() - 1).getY();
+        if (x < 0 || y < 0 || x > maxX || y > maxY) {
+            throw new IndexOutOfBoundsException("Case hors de la grille : (" + x + ", " + y + ")");
+        }
+        return this.cases.get(x * (maxY + 1) + y);
+	}
+
+	public Grille(int lignes, int colonnes) {
+		initGrille(lignes, colonnes);
+	}
+
+	/*
+	 * Initialisation de la grille ...
+	 */
+	private void initGrille(int lignes, int colonnes) {
+		cases = new ArrayList<>();
+		for (int x = 0; x <= lignes; x++) {
+			for (int y = 0; y <= colonnes; y++) {
+				Case element = new Case(x, y);
+				cases.add(element);
+			}
+		}
+	}
+}
